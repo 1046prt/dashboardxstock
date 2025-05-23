@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Dashboard - Prakash Raj</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Stock Dashboard</h1>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="login.html">Login</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container">
+        <h2>Welcome to Stock Dashboard</h2>
+        <p>Hello, I'm Prakash Raj. This is my first web project showcasing stock market data and financial insights.</p>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Stocks Tracked</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">$2.1T</span>
+            <span class="stat-label">Total Market Cap</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Market Monitoring</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">Real-time</span>
+            <span class="stat-label">Data Updates</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="market-overview">
+      <div class="container">
+        <h2>Market Overview</h2>
+        <div class="market-indicators">
+          <div class="indicator">
+            <h3>S&P 500</h3>
+            <div class="price">5,234.18</div>
+            <div class="change positive">+1.24%</div>
+          </div>
+          <div class="indicator">
+            <h3>NASDAQ</h3>
+            <div class="price">16,274.94</div>
+            <div class="change positive">+0.98%</div>
+          </div>
+          <div class="indicator">
+            <h3>DOW JONES</h3>
+            <div class="price">38,441.54</div>
+            <div class="change negative">-0.31%</div>
+          </div>
+          <div class="indicator">
+            <h3>VIX (Fear Index)</h3>
+            <div class="price">12.84</div>
+            <div class="change negative">-2.15%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stock-data">
+      <div class="container">
+        <h2>Current Stock Prices</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>Symbol</th>
+                <th>Current Price</th>
+                <th>Previous Close</th>
+                <th>Change (%)</th>
+                <th>Volume</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>IBM</td>
+                <td>IBM</td>
+                <td>$235.94</td>
+                <td>$235.85</td>
+                <td class="positive">+0.04%</td>
+                <td>2.1M</td>
+              </tr>
+              <tr>
+                <td>Google (Alphabet)</td>
+                <td>GOOGL</td>
+                <td>$171.67</td>
+                <td>$164.00</td>
+                <td class="positive">+4.68%</td>
+                <td>15.3M</td>
+              </tr>
+              <tr>
+                <td>NVIDIA</td>
+                <td>NVDA</td>
+                <td>$1,258.14</td>
+                <td>$1,254.60</td>
+                <td class="positive">+0.28%</td>
+                <td>28.7M</td>
+              </tr>
+              <tr>
+                <td>Intel</td>
+                <td>INTC</td>
+                <td>$21.42</td>
+                <td>$21.00</td>
+                <td class="positive">+2.00%</td>
+                <td>45.2M</td>
+              </tr>
+              <tr>
+                <td>Microsoft</td>
+                <td>MSFT</td>
+                <td>$430.52</td>
+                <td>$429.17</td>
+                <td class="positive">+0.31%</td>
+                <td>18.9M</td>
+              </tr>
+              <tr>
+                <td>Apple</td>
+                <td>AAPL</td>
+                <td>$185.43</td>
+                <td>$186.12</td>
+                <td class="negative">-0.37%</td>
+                <td>52.4M</td>
+              </tr>
+              <tr>
+                <td>Tesla</td>
+                <td>TSLA</td>
+                <td>$248.87</td>
+                <td>$251.33</td>
+                <td class="negative">-0.98%</td>
+                <td>34.1M</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="financial-news">
+      <div class="container">
+        <h2>Latest Financial News</h2>
+        <div class="news-grid">
+          <div class="news-card">
+            <h3>Tech Stocks Show Strong Performance</h3>
+            <p>Major technology companies continue to outperform market expectations as AI adoption accelerates across industries.</p>
+            <div class="news-time">2 hours ago</div>
+          </div>
+          <div class="news-card">
+            <h3>Federal Reserve Maintains Interest Rates</h3>
+            <p>The Federal Reserve decided to keep interest rates unchanged, citing stable inflation and economic growth indicators.</p>
+            <div class="news-time">4 hours ago</div>
+          </div>
+          <div class="news-card">
+            <h3>Semiconductor Sector Update</h3>
+            <p>Chip manufacturers report strong quarterly earnings driven by increasing demand for AI and automotive applications.</p>
+            <div class="news-time">6 hours ago</div>
+          </div>
+          <div class="news-card">
+            <h3>Market Volatility Analysis</h3>
+            <p>Analysts predict continued market stability with potential growth opportunities in emerging technology sectors.</p>
+            <div class="news-time">8 hours ago</div>
+          </div>
+          <div class="news-card">
+            <h3>Energy Sector Developments</h3>
+            <p>Renewable energy stocks gain momentum as governments increase clean energy investments and policies.</p>
+            <div class="news-time">12 hours ago</div>
+          </div>
+          <div class="news-card">
+            <h3>Global Economic Outlook</h3>
+            <p>International markets show resilience despite geopolitical tensions, with focus shifting to sustainable growth.</p>
+            <div class="news-time">1 day ago</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="container">
+        <h2>About This Project</h2>
+        <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
+          This stock dashboard represents my journey into web development and financial technology. 
+          Built with passion and dedication to provide real-time market insights.
+        </p>
+        <div class="about-content">
+          <div class="about-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Real-time Data</h3>
+            <p>Stay updated with live stock prices and market movements to make informed investment decisions.</p>
+          </div>
+          <div class="about-card">
+            <i class="fas fa-newspaper"></i>
+            <h3>Financial News</h3>
+            <p>Get the latest market news and analysis to understand market trends and opportunities.</p>
+          </div>
+          <div class="about-card">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Secure & Reliable</h3>
+            <p>Built with modern web technologies ensuring data security and reliable performance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="icon-box">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Email</h3>
+          <a href="mailto:rajprakash1046@gmail.com">rajprakash1046@gmail.com</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="icon-box">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <h3>Phone</h3>
+          <a href="tel:+919508015377">+91 9508015377</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="icon-box">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h3>Location</h3>
+          <p>Jaipur, India</p>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="https://wa.me/919508015377" target="_blank" class="social-icon">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://instagram.com/1046prt" target="_blank" class="social-icon">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com/1046prt" target="_blank" class="social-icon">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="mailto:rajprakash1046@gmail.com" class="social-icon">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Stock Dashboard |  Prakash Raj</p>
+    </div>
+  </footer>
+</body>
+</html>
