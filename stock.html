@@ -1,0 +1,163 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Famous Company Stocks</title>
+    <style>
+        :root {
+        --primary-color: #1d2840;
+        --secondary-color: hsl(223, 49%, 25%); 
+        --text-color: #1f2937;
+        --light-gray: #f3f4f6;
+        --white: #ffffff;
+        --positive: #10b981;
+        --negative: #ef4444;
+        --accent: #3b82f6;
+        }
+
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+        body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--light-gray);
+        }
+
+        .nav-container {
+        background-color: var(--secondary-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.75rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+
+        .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        }
+
+        nav a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: opacity 0.3s ease;
+        padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+        opacity: 0.7;
+        }
+
+        .site-title {
+        font-weight: 600;
+        font-size: 1.2rem;
+        color: var(--white);
+        }
+
+        .container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        }
+
+        .stock-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        }
+
+        .stock-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 1.25rem;
+        transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stock-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .stock-card h2 {
+        margin: 0 0 0.4rem;
+        font-size: 1.1rem;
+        color: #2c3e50;
+        }
+
+        .stock-card p {
+        margin: 0.3rem 0;
+        color: #555;
+        font-size: 0.95rem;
+        }
+
+        footer {
+        background-color: var(--primary-color);
+        color: var(--white);
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+  <div class="nav-container">
+    <nav>
+      <div class="site-title">Stock Tracker</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="stock.html">Stocks</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+    <div class="stock-grid">
+      <div class="stock-card"><h2>Apple Inc. (AAPL)</h2><p><strong>Price:</strong> $185.60</p><p><strong>Market Cap:</strong> $2.9T</p><p><strong>Sector:</strong> Technology</p></div>
+      <div class="stock-card"><h2>Microsoft Corp. (MSFT)</h2><p><strong>Price:</strong> $312.45</p><p><strong>Market Cap:</strong> $2.6T</p><p><strong>Sector:</strong> Technology</p></div>
+      <div class="stock-card"><h2>Amazon.com Inc. (AMZN)</h2><p><strong>Price:</strong> $122.35</p><p><strong>Market Cap:</strong> $1.3T</p><p><strong>Sector:</strong> Consumer Discretionary</p></div>
+      <div class="stock-card"><h2>Alphabet Inc. (GOOGL)</h2><p><strong>Price:</strong> $135.76</p><p><strong>Market Cap:</strong> $1.8T</p><p><strong>Sector:</strong> Communication Services</p></div>
+      <div class="stock-card"><h2>Tesla Inc. (TSLA)</h2><p><strong>Price:</strong> $230.89</p><p><strong>Market Cap:</strong> $700B</p><p><strong>Sector:</strong> Consumer Discretionary</p></div>
+      <div class="stock-card"><h2>NVIDIA Corp. (NVDA)</h2><p><strong>Price:</strong> $985.64</p><p><strong>Market Cap:</strong> $2.4T</p><p><strong>Sector:</strong> Technology</p></div>
+      <div class="stock-card"><h2>Meta Platforms Inc. (META)</h2><p><strong>Price:</strong> $330.12</p><p><strong>Market Cap:</strong> $850B</p><p><strong>Sector:</strong> Communication Services</p></div>
+      <div class="stock-card"><h2>Visa Inc. (V)</h2><p><strong>Price:</strong> $241.89</p><p><strong>Market Cap:</strong> $500B</p><p><strong>Sector:</strong> Financials</p></div>
+      <div class="stock-card"><h2>Johnson & Johnson (JNJ)</h2><p><strong>Price:</strong> $163.21</p><p><strong>Market Cap:</strong> $430B</p><p><strong>Sector:</strong> Healthcare</p></div>
+      <div class="stock-card"><h2>JPMorgan Chase & Co. (JPM)</h2><p><strong>Price:</strong> $148.25</p><p><strong>Market Cap:</strong> $430B</p><p><strong>Sector:</strong> Financials</p></div>
+      <div class="stock-card"><h2>Procter & Gamble Co. (PG)</h2><p><strong>Price:</strong> $151.50</p><p><strong>Market Cap:</strong> $380B</p><p><strong>Sector:</strong> Consumer Staples</p></div>
+      <div class="stock-card"><h2>Mastercard Inc. (MA)</h2><p><strong>Price:</strong> $375.60</p><p><strong>Market Cap:</strong> $400B</p><p><strong>Sector:</strong> Financials</p></div>
+      <div class="stock-card"><h2>UnitedHealth Group (UNH)</h2><p><strong>Price:</strong> $497.33</p><p><strong>Market Cap:</strong> $460B</p><p><strong>Sector:</strong> Healthcare</p></div>
+      <div class="stock-card"><h2>Home Depot Inc. (HD)</h2><p><strong>Price:</strong> $300.12</p><p><strong>Market Cap:</strong> $320B</p><p><strong>Sector:</strong> Consumer Discretionary</p></div>
+      <div class="stock-card"><h2>Exxon Mobil Corp. (XOM)</h2><p><strong>Price:</strong> $102.44</p><p><strong>Market Cap:</strong> $430B</p><p><strong>Sector:</strong> Energy</p></div>
+      <div class="stock-card"><h2>Bank of America Corp. (BAC)</h2><p><strong>Price:</strong> $28.31</p><p><strong>Market Cap:</strong> $280B</p><p><strong>Sector:</strong> Financials</p></div>
+      <div class="stock-card"><h2>Coca-Cola Co. (KO)</h2><p><strong>Price:</strong> $61.55</p><p><strong>Market Cap:</strong> $260B</p><p><strong>Sector:</strong> Consumer Staples</p></div>
+      <div class="stock-card"><h2>Walmart Inc. (WMT)</h2><p><strong>Price:</strong> $150.22</p><p><strong>Market Cap:</strong> $410B</p><p><strong>Sector:</strong> Consumer Staples</p></div>
+      <div class="stock-card"><h2>Intel Corp. (INTC)</h2><p><strong>Price:</strong> $38.65</p><p><strong>Market Cap:</strong> $160B</p><p><strong>Sector:</strong> Technology</p></div>
+      <div class="stock-card"><h2>Adobe Inc. (ADBE)</h2><p><strong>Price:</strong> $520.50</p><p><strong>Market Cap:</strong> $240B</p><p><strong>Sector:</strong> Technology</p></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Static data for demonstration only. Last updated: May 2025.</p>
+    <p>&copy; 2025 Stock Dashboard |  Prakash Raj</p>
+  </footer>
+
+</body>
+</html>
