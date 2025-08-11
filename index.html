@@ -1,276 +1,1337 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Stock market dashboard with real-time data and financial insights">
-  <title>Stock Dashboard | Prakash Raj</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="index.css">
-</head>
-<body>
-  <main id="home"></main>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Advanced stock market dashboard with real-time data visualization"
+    />
+    <title>StockVision | Advanced Market Analytics</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
+    <style>
+      :root {
+        --primary: #4361ee;
+        --primary-dark: #3a56d4;
+        --secondary: #3f37c9;
+        --accent: #4895ef;
+        --danger: #f72585;
+        --success: #4cc9f0;
+        --warning: #f8961e;
+        --dark: #212529;
+        --light: #f8f9fa;
+        --gray: #6c757d;
+        --white: #ffffff;
+        --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f5f7fa;
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--white);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo i {
+        font-size: 1.8rem;
+        color: var(--white);
+      }
+
+      .logo h1 {
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      nav a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      nav a:hover {
+        opacity: 0.8;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(
+            rgba(67, 97, 238, 0.9),
+            rgba(63, 55, 201, 0.9)
+          ),
+          url("https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
+            no-repeat center center/cover;
+        color: var(--white);
+        padding: 5rem 0;
+        text-align: center;
+      }
+
+      .hero h2 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        opacity: 0.9;
+      }
+
+      .search-container {
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border-radius: 50px;
+        border: none;
+        font-size: 1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 0.7rem 1.5rem;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .search-btn:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Market Overview */
+      .market-overview {
+        padding: 4rem 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title h2 {
+        font-size: 2.2rem;
+        color: var(--dark);
+        display: inline-block;
+        position: relative;
+      }
+
+      .section-title h2:after {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 3px;
+        background: var(--primary);
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .indices-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .index-card {
+        background: var(--white);
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        border-left: 4px solid var(--primary);
+      }
+
+      .index-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .index-name {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+      }
+
+      .index-price {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      .index-change {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+      }
+
+      .positive {
+        color: var(--success);
+      }
+
+      .negative {
+        color: var(--danger);
+      }
+
+      /* Top Movers Section */
+      .top-movers {
+        padding: 4rem 0;
+        background: var(--light);
+      }
+
+      .movers-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        gap: 1rem;
+      }
+
+      .tab-btn {
+        padding: 0.7rem 1.5rem;
+        background: var(--white);
+        border: 1px solid #e0e0e0;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: 500;
+      }
+
+      .tab-btn.active {
+        background: var(--primary);
+        color: var(--white);
+        border-color: var(--primary);
+      }
+
+      .movers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .mover-card {
+        background: var(--white);
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .mover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .stock-symbol {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+      }
+
+      .stock-name {
+        font-size: 0.9rem;
+        color: var(--gray);
+        margin-bottom: 1rem;
+      }
+
+      .stock-price {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Market Chart */
+      .market-chart {
+        padding: 4rem 0;
+        background: var(--white);
+      }
+
+      .chart-container {
+        background: var(--white);
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        height: 500px;
+      }
+
+      /* News Section */
+      .news-section {
+        padding: 4rem 0;
+        background: var(--light);
+      }
+
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .news-card {
+        background: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+      }
+
+      .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .news-img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .news-content {
+        padding: 1.5rem;
+      }
+
+      .news-source {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 0.8rem;
+        font-size: 0.8rem;
+        color: var(--gray);
+      }
+
+      .news-source img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+
+      .news-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.4;
+      }
+
+      .news-desc {
+        color: var(--gray);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .news-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+        color: var(--gray);
+      }
+
+      /* About Section */
+      .about-section {
+        padding: 4rem 0;
+        background: var(--white);
+      }
+
+      .about-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-text h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--dark);
+      }
+
+      .about-text p {
+        margin-bottom: 1.5rem;
+        color: var(--gray);
+      }
+
+      .about-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .feature-card {
+        padding: 1.5rem;
+        background: var(--light);
+        border-radius: 10px;
+        transition: var(--transition);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        background: var(--primary);
+        color: var(--white);
+      }
+
+      .feature-card:hover i,
+      .feature-card:hover h4,
+      .feature-card:hover p {
+        color: var(--white);
+      }
+
+      .feature-card i {
+        font-size: 1.8rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .feature-card h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+      }
+
+      .feature-card p {
+        font-size: 0.9rem;
+        color: var(--gray);
+      }
+
+      /* Contact Section */
+      .contact-section {
+        padding: 4rem 0;
+        background: linear-gradient(
+            rgba(67, 97, 238, 0.9),
+            rgba(63, 55, 201, 0.9)
+          ),
+          url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
+            no-repeat center center/cover;
+        color: var(--white);
+      }
+
+      .contact-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+      }
+
+      .contact-info h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .contact-info p {
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .contact-methods {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .contact-method {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      .contact-text h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .contact-text a {
+        color: var(--white);
+        text-decoration: none;
+        opacity: 0.8;
+        transition: var(--transition);
+      }
+
+      .contact-text a:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+
+      .contact-form {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: var(--card-shadow);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: "Poppins", sans-serif;
+        transition: var(--transition);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      }
+
+      textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        background: var(--primary);
+        color: var(--white);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition);
+        width: 100%;
+      }
+
+      .submit-btn:hover {
+        background: var(--primary-dark);
+      }
+
+      /* Social Links */
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .social-link {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        color: var(--white);
+        transition: var(--transition);
+      }
+
+      .social-link:hover {
+        background: var(--white);
+        color: var(--primary);
+        transform: translateY(-3px);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--dark);
+        color: var(--white);
+        padding: 2rem 0;
+        text-align: center;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+        text-align: left;
+      }
+
+      .footer-col h4 {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      .footer-col h4:after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 2px;
+        background: var(--primary);
+        bottom: -8px;
+        left: 0;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.8rem;
+      }
+
+      .footer-links a {
+        color: #adb5bd;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--white);
+        padding-left: 5px;
+      }
+
+      .footer-bottom {
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        color: #adb5bd;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .header-container {
+          padding: 0 20px;
+        }
+
+        .hero h2 {
+          font-size: 2.2rem;
+        }
+
+        .about-features {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        nav {
+          position: fixed;
+          top: 70px;
+          left: -100%;
+          width: 100%;
+          background: var(--primary);
+          padding: 1rem 0;
+          transition: var(--transition);
+          z-index: 999;
+        }
+
+        nav.active {
+          left: 0;
+        }
+
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+        }
+
+        .hero h2 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .section-title h2 {
+          font-size: 1.8rem;
+        }
+
+        .contact-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero {
+          padding: 3rem 0;
+        }
+
+        .hero h2 {
+          font-size: 1.8rem;
+        }
+
+        .search-input {
+          padding: 0.8rem 1rem;
+        }
+
+        .search-btn {
+          padding: 0.5rem 1rem;
+        }
+
+        .section-title h2 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
     <header>
-      <div class="container">
-        <h1>Stock Dashboard</h1>
-        <nav>
-          <a href="#home">Home</a>
-          <a href="stock.html">Stock</a>
-          <a href="login.html">Login</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+      <div class="container header-container">
+        <div class="logo">
+          <i class="fas fa-chart-line"></i>
+          <h1>StockVision</h1>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="mainNav">
+          <ul>
+            <li>
+              <a href="#home"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li>
+              <a href="stocks.html"><i class="fas fa-chart-bar"></i> Stocks</a>
+            </li>
+            <li>
+              <a href="watchlist.html"><i class="fas fa-star"></i> Watchlist</a>
+            </li>
+            <li>
+              <a href="news.html"><i class="fas fa-newspaper"></i> News</a>
+            </li>
+            <li>
+              <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+            </li>
+            <li>
+              <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+            <li>
+              <a href="login.html" class="btn-login"
+                ><i class="fas fa-sign-in-alt"></i> Login</a
+              >
+            </li>
+          </ul>
         </nav>
       </div>
     </header>
+
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="home">
       <div class="container">
-        <h2>Welcome to Stock Dashboard</h2>
-        <p>Hello, I'm Prakash Raj. This is my first web project showcasing stock market data and financial insights.</p>
-        
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-number">5</span>
-            <span class="stat-label">Stocks Tracked</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">$2.1T</span>
-            <span class="stat-label">Total Market Cap</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">24/7</span>
-            <span class="stat-label">Market Monitoring</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number">Real-time</span>
-            <span class="stat-label">Data Updates</span>
-          </div>
+        <h2>Advanced Stock Market Analytics</h2>
+        <p>
+          Real-time market data, powerful visualization tools, and comprehensive
+          analysis to help you make informed investment decisions.
+        </p>
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search for stocks, ETFs, or cryptocurrencies..."
+          />
+          <button class="search-btn">Search</button>
         </div>
       </div>
     </section>
-    <!-- Market Overview, Stock Data, Financial News, About Section -->
+
+    <!-- Market Overview -->
     <section class="market-overview">
       <div class="container">
-        <h2>Market Overview</h2>
-        <div class="market-indicators">
-          <div class="indicator">
-            <h3>S&P 500</h3>
-            <div class="price">5,234.18</div>
-            <div class="change positive">+1.24%</div>
+        <div class="section-title">
+          <h2>Market Overview</h2>
+        </div>
+        <div class="indices-grid">
+          <div class="index-card">
+            <div class="index-name">S&P 500</div>
+            <div class="index-price">5,234.18</div>
+            <div class="index-change positive">
+              <i class="fas fa-caret-up"></i> +1.24% (+64.12)
+            </div>
           </div>
-          <div class="indicator">
-            <h3>NASDAQ</h3>
-            <div class="price">16,274.94</div>
-            <div class="change positive">+0.98%</div>
+          <div class="index-card">
+            <div class="index-name">NASDAQ</div>
+            <div class="index-price">16,274.94</div>
+            <div class="index-change positive">
+              <i class="fas fa-caret-up"></i> +0.98% (+158.34)
+            </div>
           </div>
-          <div class="indicator">
-            <h3>DOW JONES</h3>
-            <div class="price">38,441.54</div>
-            <div class="change negative">-0.31%</div>
+          <div class="index-card">
+            <div class="index-name">DOW JONES</div>
+            <div class="index-price">38,441.54</div>
+            <div class="index-change negative">
+              <i class="fas fa-caret-down"></i> -0.31% (-119.25)
+            </div>
           </div>
-          <div class="indicator">
-            <h3>VIX (Fear Index)</h3>
-            <div class="price">12.84</div>
-            <div class="change negative">-2.15%</div>
+          <div class="index-card">
+            <div class="index-name">RUSSELL 2000</div>
+            <div class="index-price">2,034.12</div>
+            <div class="index-change positive">
+              <i class="fas fa-caret-up"></i> +0.45% (+9.18)
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- Stock Data, Financial News, About Section -->
-    <section class="stock-data">
+
+    <!-- Top Movers Section -->
+    <section class="top-movers">
       <div class="container">
-        <h2>Current Stock Prices</h2>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Company</th>
-                <th>Symbol</th>
-                <th>Current Price</th>
-                <th>Previous Close</th>
-                <th>Change (%)</th>
-                <th>Volume</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>IBM</td>
-                <td>IBM</td>
-                <td>$235.94</td>
-                <td>$235.85</td>
-                <td class="positive">+0.04%</td>
-                <td>2.1M</td>
-              </tr>
-              <tr>
-                <td>Google (Alphabet)</td>
-                <td>GOOGL</td>
-                <td>$171.67</td>
-                <td>$164.00</td>
-                <td class="positive">+4.68%</td>
-                <td>15.3M</td>
-              </tr>
-              <tr>
-                <td>NVIDIA</td>
-                <td>NVDA</td>
-                <td>$1,258.14</td>
-                <td>$1,254.60</td>
-                <td class="positive">+0.28%</td>
-                <td>28.7M</td>
-              </tr>
-              <tr>
-                <td>Intel</td>
-                <td>INTC</td>
-                <td>$21.42</td>
-                <td>$21.00</td>
-                <td class="positive">+2.00%</td>
-                <td>45.2M</td>
-              </tr>
-              <tr>
-                <td>Microsoft</td>
-                <td>MSFT</td>
-                <td>$430.52</td>
-                <td>$429.17</td>
-                <td class="positive">+0.31%</td>
-                <td>18.9M</td>
-              </tr>
-              <tr>
-                <td>Apple</td>
-                <td>AAPL</td>
-                <td>$185.43</td>
-                <td>$186.12</td>
-                <td class="negative">-0.37%</td>
-                <td>52.4M</td>
-              </tr>
-              <tr>
-                <td>Tesla</td>
-                <td>TSLA</td>
-                <td>$248.87</td>
-                <td>$251.33</td>
-                <td class="negative">-0.98%</td>
-                <td>34.1M</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="section-title">
+          <h2>Today's Top Movers</h2>
+        </div>
+        <div class="movers-tabs">
+          <button class="tab-btn active">Gainers</button>
+          <button class="tab-btn">Losers</button>
+          <button class="tab-btn">Active</button>
+          <button class="tab-btn">Crypto</button>
+        </div>
+        <div class="movers-grid">
+          <div class="mover-card">
+            <div class="stock-symbol">NVDA</div>
+            <div class="stock-name">NVIDIA Corporation</div>
+            <div class="stock-price">$985.64</div>
+            <div class="index-change positive">+5.24%</div>
+          </div>
+          <div class="mover-card">
+            <div class="stock-symbol">TSLA</div>
+            <div class="stock-name">Tesla, Inc.</div>
+            <div class="stock-price">$248.87</div>
+            <div class="index-change positive">+3.76%</div>
+          </div>
+          <div class="mover-card">
+            <div class="stock-symbol">AMD</div>
+            <div class="stock-name">Advanced Micro Devices</div>
+            <div class="stock-price">$178.32</div>
+            <div class="index-change positive">+3.15%</div>
+          </div>
+          <div class="mover-card">
+            <div class="stock-symbol">META</div>
+            <div class="stock-name">Meta Platforms</div>
+            <div class="stock-price">$330.12</div>
+            <div class="index-change positive">+2.89%</div>
+          </div>
+          <div class="mover-card">
+            <div class="stock-symbol">SHOP</div>
+            <div class="stock-name">Shopify Inc.</div>
+            <div class="stock-price">$82.45</div>
+            <div class="index-change positive">+2.64%</div>
+          </div>
         </div>
       </div>
     </section>
-    <!-- Financial News Section -->
-    <section class="financial-news">
+
+    <!-- Market Chart Section -->
+    <section class="market-chart">
       <div class="container">
-        <h2>Latest Financial News</h2>
+        <div class="section-title">
+          <h2>Market Performance</h2>
+        </div>
+        <div class="chart-container">
+          <canvas id="marketChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Latest Financial News</h2>
+        </div>
         <div class="news-grid">
           <div class="news-card">
-            <h3>Tech Stocks Show Strong Performance</h3>
-            <p>Major technology companies continue to outperform market expectations as AI adoption accelerates across industries.</p>
-            <div class="news-time">2 hours ago</div>
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Market News"
+              class="news-img"
+            />
+            <div class="news-content">
+              <div class="news-source">
+                <img
+                  src="https://logo.clearbit.com/bloomberg.com"
+                  alt="Bloomberg"
+                />
+                <span>Bloomberg • 2 hours ago</span>
+              </div>
+              <h3 class="news-title">
+                Tech Stocks Rally as AI Adoption Accelerates Across Industries
+              </h3>
+              <p class="news-desc">
+                Major technology companies continue to outperform market
+                expectations as AI adoption accelerates across industries with
+                NVIDIA leading the charge.
+              </p>
+              <div class="news-footer">
+                <span>5 min read</span>
+                <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
           </div>
           <div class="news-card">
-            <h3>Federal Reserve Maintains Interest Rates</h3>
-            <p>The Federal Reserve decided to keep interest rates unchanged, citing stable inflation and economic growth indicators.</p>
-            <div class="news-time">4 hours ago</div>
+            <img
+              src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Fed News"
+              class="news-img"
+            />
+            <div class="news-content">
+              <div class="news-source">
+                <img src="https://logo.clearbit.com/cnbc.com" alt="CNBC" />
+                <span>CNBC • 4 hours ago</span>
+              </div>
+              <h3 class="news-title">
+                Federal Reserve Maintains Interest Rates Amid Stable Economic
+                Indicators
+              </h3>
+              <p class="news-desc">
+                The Federal Reserve decided to keep interest rates unchanged,
+                citing stable inflation and positive economic growth indicators
+                for Q2 2025.
+              </p>
+              <div class="news-footer">
+                <span>4 min read</span>
+                <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
           </div>
           <div class="news-card">
-            <h3>Semiconductor Sector Update</h3>
-            <p>Chip manufacturers report strong quarterly earnings driven by increasing demand for AI and automotive applications.</p>
-            <div class="news-time">6 hours ago</div>
-          </div>
-          <div class="news-card">
-            <h3>Market Volatility Analysis</h3>
-            <p>Analysts predict continued market stability with potential growth opportunities in emerging technology sectors.</p>
-            <div class="news-time">8 hours ago</div>
-          </div>
-          <div class="news-card">
-            <h3>Energy Sector Developments</h3>
-            <p>Renewable energy stocks gain momentum as governments increase clean energy investments and policies.</p>
-            <div class="news-time">12 hours ago</div>
-          </div>
-          <div class="news-card">
-            <h3>Global Economic Outlook</h3>
-            <p>International markets show resilience despite geopolitical tensions, with focus shifting to sustainable growth.</p>
-            <div class="news-time">1 day ago</div>
+            <img
+              src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Chip News"
+              class="news-img"
+            />
+            <div class="news-content">
+              <div class="news-source">
+                <img
+                  src="https://logo.clearbit.com/reuters.com"
+                  alt="Reuters"
+                />
+                <span>Reuters • 6 hours ago</span>
+              </div>
+              <h3 class="news-title">
+                Semiconductor Sector Reports Strong Earnings on AI and
+                Automotive Demand
+              </h3>
+              <p class="news-desc">
+                Chip manufacturers report strong quarterly earnings driven by
+                increasing demand for AI applications and automotive
+                electronics.
+              </p>
+              <div class="news-footer">
+                <span>6 min read</span>
+                <a href="#">Read More <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
     <!-- About Section -->
-    <section id="about" class="about-section">
+    <section class="about-section" id="about">
       <div class="container">
-        <h2>About This Project</h2>
-        <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
-          This stock dashboard represents my journey into web development and financial technology. 
-          Built with passion and dedication to provide real-time market insights.
-        </p>
+        <div class="section-title">
+          <h2>About StockVision</h2>
+        </div>
         <div class="about-content">
-          <div class="about-card">
-            <i class="fas fa-chart-line"></i>
-            <h3>Real-time Data</h3>
-            <p>Stay updated with live stock prices and market movements to make informed investment decisions.</p>
+          <div class="about-text">
+            <h3>Advanced Market Analytics Platform</h3>
+            <p>
+              StockVision is a comprehensive financial platform designed to
+              provide investors with real-time market data, powerful
+              visualization tools, and in-depth analysis to help make informed
+              investment decisions.
+            </p>
+            <p>
+              Our mission is to democratize access to professional-grade market
+              analytics and empower both novice and experienced investors with
+              the tools they need to succeed in today's dynamic markets.
+            </p>
+            <button class="submit-btn">Learn More</button>
           </div>
-          <div class="about-card">
-            <i class="fas fa-newspaper"></i>
-            <h3>Financial News</h3>
-            <p>Get the latest market news and analysis to understand market trends and opportunities.</p>
-          </div>
-          <div class="about-card">
-            <i class="fas fa-shield-alt"></i>
-            <h3>Secure & Reliable</h3>
-            <p>Built with modern web technologies ensuring data security and reliable performance.</p>
+          <div class="about-features">
+            <div class="feature-card">
+              <i class="fas fa-bolt"></i>
+              <h4>Real-time Data</h4>
+              <p>
+                Get up-to-the-second market data with our low-latency streaming
+                technology.
+              </p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-chart-pie"></i>
+              <h4>Advanced Charts</h4>
+              <p>
+                Powerful visualization tools with technical indicators and
+                drawing tools.
+              </p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-bell"></i>
+              <h4>Custom Alerts</h4>
+              <p>
+                Set price alerts and get notifications for important market
+                movements.
+              </p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-shield-alt"></i>
+              <h4>Secure Platform</h4>
+              <p>Bank-grade security to protect your data and privacy.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  </main>
-  <!-- Contact Section -->
-  <section id="contact" class="contact-section">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <div class="icon-box">
-            <i class="fas fa-envelope"></i>
-          </div>
-          <h3>Email</h3>
-          <a href="mailto:rajprakash1046@gmail.com">rajprakash1046@gmail.com</a>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="container">
+        <div class="section-title">
+          <h2>Contact Us</h2>
         </div>
-        
-        <div class="contact-card">
-          <div class="icon-box">
-            <i class="fas fa-phone-alt"></i>
+        <div class="contact-container">
+          <div class="contact-info">
+            <h3>Get In Touch</h3>
+            <p>
+              Have questions about our platform or need assistance? Our team is
+              here to help you with any inquiries you may have.
+            </p>
+            <div class="contact-methods">
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-text">
+                  <h4>Email</h4>
+                  <a href="mailto:support@stockvision.com"
+                    >support@stockvision.com</a
+                  >
+                </div>
+              </div>
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="contact-text">
+                  <h4>Phone</h4>
+                  <a href="tel:+18005551234">+1 (800) 555-1234</a>
+                </div>
+              </div>
+              <div class="contact-method">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-text">
+                  <h4>Headquarters</h4>
+                  <p>123 Market St, San Francisco, CA 94103</p>
+                </div>
+              </div>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
           </div>
-          <h3>Phone</h3>
-          <a href="tel:+919508015377">+91 9508015377</a>
-        </div>
-        
-        <div class="contact-card">
-          <div class="icon-box">
-            <i class="fas fa-map-marker-alt"></i>
+          <div class="contact-form">
+            <form>
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  placeholder="Enter your name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  placeholder="Enter your email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  class="form-control"
+                  placeholder="What's this about?"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  class="form-control"
+                  placeholder="How can we help you?"
+                ></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
           </div>
-          <h3>Location</h3>
-          <p>Jaipur, India</p>
         </div>
       </div>
-      <!-- Social Links -->      
-      <div class="social-links">
-        <a href="https://wa.me/919508015377" target="_blank" class="social-icon">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-        <a href="https://instagram.com/1046prt" target="_blank" class="social-icon">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://twitter.com/1046prt" target="_blank" class="social-icon">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="mailto:rajprakash1046@gmail.com" class="social-icon">
-          <i class="fas fa-envelope"></i>
-        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-col">
+            <h4>StockVision</h4>
+            <p>
+              Advanced market analytics platform providing real-time data,
+              powerful visualization tools, and comprehensive analysis for
+              informed investment decisions.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="stocks.html">Stocks</a></li>
+              <li><a href="watchlist.html">Watchlist</a></li>
+              <li><a href="news.html">News</a></li>
+              <li><a href="#about">About</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul class="footer-links">
+              <li><a href="#">Market Data</a></li>
+              <li><a href="#">Research Tools</a></li>
+              <li><a href="#">Learning Center</a></li>
+              <li><a href="#">API Documentation</a></li>
+              <li><a href="#">Help Center</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+              <li><a href="#">GDPR Compliance</a></li>
+              <li><a href="#">Disclosures</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            &copy; 2025 StockVision. All rights reserved. | Designed and
+            Developed by Prakash Raj
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Stock Dashboard |  Prakash Raj</p>
-    </div>
-  </footer>
-</body>
+    </footer>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mainNav = document.getElementById("mainNav");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+      });
+
+      // Tab Functionality
+      const tabBtns = document.querySelectorAll(".tab-btn");
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+
+      // Market Chart
+      const ctx = document.getElementById("marketChart").getContext("2d");
+      const marketChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              label: "S&P 500",
+              data: [
+                4100, 4200, 4300, 4400, 4500, 4600, 4700, 4800, 4900, 5000,
+                5100, 5234,
+              ],
+              borderColor: "#4361ee",
+              backgroundColor: "rgba(67, 97, 238, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+            {
+              label: "NASDAQ",
+              data: [
+                12500, 13000, 13500, 14000, 14500, 15000, 15200, 15500, 15800,
+                16000, 16200, 16274,
+              ],
+              borderColor: "#4cc9f0",
+              backgroundColor: "rgba(76, 201, 240, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+            {
+              label: "DOW JONES",
+              data: [
+                34000, 34500, 35000, 35500, 36000, 36500, 37000, 37500, 37800,
+                38000, 38200, 38441,
+              ],
+              borderColor: "#f8961e",
+              backgroundColor: "rgba(248, 150, 30, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+            },
+            tooltip: {
+              mode: "index",
+              intersect: false,
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              ticks: {
+                callback: function (value) {
+                  return value.toLocaleString();
+                },
+              },
+            },
+          },
+          interaction: {
+            mode: "nearest",
+            axis: "x",
+            intersect: false,
+          },
+        },
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
 </html>

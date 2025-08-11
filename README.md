@@ -1,6 +1,7 @@
 # Stock Dashboard & Worker Connect
 
 ## Overview
+
 This project is a web-based platform that combines two main modules:
 
 1. **Stock Dashboard**: A modern dashboard for tracking real-time stock market data, financial news, and company insights.
@@ -11,6 +12,7 @@ This project is a web-based platform that combines two main modules:
 ## Features
 
 ### Stock Dashboard
+
 - **Real-time Stock Data**: Displays current prices, market cap, and sector information for major companies (e.g., Apple, Microsoft, Amazon, etc.).
 - **Market Overview**: Shows indices like S&P 500, NASDAQ, DOW JONES, and VIX with live changes.
 - **Financial News**: Latest news cards for market trends, sector updates, and economic outlooks.
@@ -18,6 +20,7 @@ This project is a web-based platform that combines two main modules:
 - **Responsive Design**: Modern, mobile-friendly UI with navigation and contact sections.
 
 ### Worker Connect
+
 - **Professional Profiles**: Users can create and manage profiles for various skilled trades (plumber, electrician, carpenter, etc.).
 - **Service Search**: Search and filter services by category and location.
 - **Client Feedback**: Testimonial section with client reviews and ratings.
@@ -48,6 +51,7 @@ This project is a web-based platform that combines two main modules:
 ---
 
 ## Technologies Used
+
 - HTML5, CSS3 (including Tailwind CSS)
 - JavaScript (for UI interactivity)
 - FontAwesome for icons
@@ -55,13 +59,16 @@ This project is a web-based platform that combines two main modules:
 ---
 
 ## Author
+
 Prakash Raj
-- Email: rajprakash1046@gmail.com
+
+- Phone: (+91)- 9508015377
 - Location: Jaipur, India
 
 ---
 
 ## Notes
+
 - All data is static and for demonstration purposes only.
 - No backend or database integration is present in this version.
 - For any queries or suggestions, please contact the author via email.
