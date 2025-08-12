@@ -12,121 +12,8 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --primary: #4361ee;
-        --primary-dark: #3a56d4;
-        --secondary: #3f37c9;
-        --danger: #f72585;
-        --light: #f8f9fa;
-        --dark: #212529;
-        --white: #ffffff;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Poppins", sans-serif;
-        background-color: #f5f7fa;
-        color: var(--dark);
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        text-align: center;
-      }
-
-      .container {
-        max-width: 800px;
-        margin: auto;
-        padding: 2rem;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .error-code {
-        font-size: 6rem;
-        font-weight: 700;
-        color: var(--primary);
-        margin-bottom: 1rem;
-        line-height: 1;
-      }
-
-      .error-title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-
-      .error-message {
-        font-size: 1.1rem;
-        color: var(--dark);
-        opacity: 0.8;
-        margin-bottom: 2rem;
-        max-width: 500px;
-      }
-
-      .error-actions {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        padding: 0.8rem 1.5rem;
-        border-radius: 5px;
-        font-weight: 500;
-        text-decoration: none;
-        transition: all 0.3s ease;
-      }
-
-      .btn-primary {
-        background: var(--primary);
-        color: var(--white);
-      }
-
-      .btn-primary:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-      }
-
-      .btn-outline {
-        border: 1px solid var(--primary);
-        color: var(--primary);
-      }
-
-      .btn-outline:hover {
-        background: var(--primary);
-        color: var(--white);
-      }
-
-      .error-image {
-        max-width: 300px;
-        margin: 2rem auto;
-      }
-
-      footer {
-        background: var(--dark);
-        color: var(--white);
-        padding: 1.5rem;
-        text-align: center;
-      }
-
-      @media (max-width: 768px) {
-        .error-code {
-          font-size: 4rem;
-        }
-        .error-title {
-          font-size: 1.5rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="/assets/styles/index.css" />
+    <link rel="stylesheet" href="/assets/styles/404.css" />
   </head>
   <body>
     <div class="container">
@@ -145,10 +32,10 @@
       </div>
 
       <div class="error-actions">
-        <a href="index.html" class="btn btn-primary">
+        <a href="/index.html" class="btn btn-primary">
           <i class="fas fa-home"></i> Back to Home
         </a>
-        <a href="stocks.html" class="btn btn-outline">
+        <a href="/stock.html" class="btn btn-outline">
           <i class="fas fa-chart-bar"></i> Browse Stocks
         </a>
       </div>
