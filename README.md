@@ -30,7 +30,7 @@ This project is a web-based platform that combines two main modules:
 ---
 
 ## File Structure
-
+- `assets/styles/` - Style sheets of all pages
 - `index.html` - Main landing page for the Stock Dashboard, including market data, news, about, and contact sections.
 - `stock.html` - Detailed stock cards for major companies with static data for demonstration.
 - `login.html` - Login form for user authentication.
