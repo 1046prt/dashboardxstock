@@ -35,10 +35,7 @@ This project is a web-based platform that combines two main modules:
 - `stock.html` - Detailed stock cards for major companies with static data for demonstration.
 - `login.html` - Login form for user authentication.
 - `signup.html` - Signup form for new user registration.
-- `newhtml.html` - Home page for Worker Connect, including search, trending keywords, categories, and feedback/testimonials.
-- `newhtml.js` - JavaScript for Worker Connect (hamburger menu, feedback slideshow, etc.).
-- `index.css`, `newhtml.css` - Stylesheets for the respective modules.
-
+- 
 ---
 
 ## How to Use
@@ -46,7 +43,6 @@ This project is a web-based platform that combines two main modules:
 1. **Open `index.html`** in your browser to access the Stock Dashboard.
 2. **Navigate to `stock.html`** for detailed company stock information.
 3. **Use `login.html` and `signup.html`** to simulate user authentication (static forms, no backend).
-4. **Open `newhtml.html`** to explore the Worker Connect platform for professional services.
 
 ---
 
@@ -67,8 +63,4 @@ Prakash Raj
 
 ---
 
-## Notes
-
-- All data is static and for demonstration purposes only.
-- No backend or database integration is present in this version.
-- For any queries or suggestions, please contact the author via email.
+- If you have any questions or suggestions, please don't hesitate to get in touch with the author via (email)[1046prt@gmail.com].
