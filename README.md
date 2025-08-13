@@ -63,4 +63,4 @@ Prakash Raj
 
 ---
 
-- If you have any questions or suggestions, please don't hesitate to get in touch with the author via (email)[1046prt@gmail.com].
+- If you have any questions or suggestions, please don't hesitate to get in touch with the author via [email](1046prt@gmail.com).
